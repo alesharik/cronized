@@ -1,0 +1,18 @@
+[package]
+name = "cronized"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cron = "0.12.1"
+anyhow = "1.0.86"
+chrono = "0.4.38"
+
+tokio = { version = "1.39.2", features = ["macros", "process", "rt"] }
+
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
+
+metrics = "0.23.0"
+metrics-util = "0.17.0"
+metrics-exporter-prometheus = { version = "0.15.3", features = ["http-listener"] }
