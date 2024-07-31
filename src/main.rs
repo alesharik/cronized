@@ -49,16 +49,16 @@ async fn run_cycle(config: &Config) -> anyhow::Result<()> {
         Command::new(&config.shell)
             .arg("-c")
             .arg(&config.command)
-            .stdout(Stdio::piped())
-            .stderr(Stdio::piped())
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
             .current_dir(workdir)
             .spawn()?
     } else {
         Command::new(&config.shell)
             .arg("-c")
             .arg(&config.command)
-            .stdout(Stdio::piped())
-            .stderr(Stdio::piped())
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
             .spawn()?
     })
     .wait()
