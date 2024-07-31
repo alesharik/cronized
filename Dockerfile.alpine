@@ -9,4 +9,4 @@ RUN cargo build --release
 
 FROM $img
 RUN apk add --no-cache musl-dev
-COPY --from=builder /build/target/release/cronized /chronized
+COPY --from=builder /build/target/release/cronized /cronized

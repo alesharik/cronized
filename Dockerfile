@@ -7,4 +7,4 @@ COPY ./ /build
 RUN cargo build --release
 
 FROM $img
-COPY --from=builder /build/target/release/cronized /chronized
+COPY --from=builder /build/target/release/cronized /cronized
