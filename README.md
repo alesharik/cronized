@@ -1,4 +1,7 @@
 # Cronized
+![GitHub Release](https://img.shields.io/github/v/release/alesharik/cronized)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/alesharik/cronized/.github%2Fworkflows%2Fcheck.yaml)
+
 Dead-simple daemon to run Cron jobs in docker.
 Monitors job errors, write logs, and exports job info in Prometheus format.
 
