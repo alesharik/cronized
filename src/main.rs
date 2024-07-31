@@ -7,6 +7,8 @@ use std::process::Stdio;
 use std::str::FromStr;
 use std::time::Duration;
 use tokio::process::Command;
+use tokio::select;
+use tokio::signal::ctrl_c;
 use tokio::time::sleep;
 use tracing::{debug, error, info, span, Instrument, Level};
 use tracing_subscriber::EnvFilter;
@@ -26,20 +28,28 @@ async fn main() -> anyhow::Result<()> {
 
     metrics::install(&config.metrics)?;
 
-    for time in Schedule::from_str(&config.cron)?.upcoming(Local) {
-        run_cycle(&config)
-            .instrument(span!(Level::INFO, "command", command = ?config.command))
-            .await?;
-
-        let delta = time - Local::now();
-        debug!("Sleeping {:?}", &delta);
-        sleep(Duration::from_millis(delta.num_milliseconds() as u64)).await;
+    select! {
+        _ = ctrl_c() => return Ok(()),
+        _ = cycle(&config) => {},
     }
 
     bail!("Should not end")
 }
 
-async fn run_cycle(config: &Config) -> anyhow::Result<()> {
+async fn cycle(config: &Config) {
+    for time in Schedule::from_str(&config.cron).unwrap().upcoming(Local) {
+        iteration(&config)
+            .instrument(span!(Level::INFO, "command", command = ?config.command))
+            .await
+            .unwrap();
+
+        let delta = time - Local::now();
+        debug!("Sleeping {:?}", &delta);
+        sleep(Duration::from_millis(delta.num_milliseconds() as u64)).await
+    }
+}
+
+async fn iteration(config: &Config) -> anyhow::Result<()> {
     debug!("Running command");
 
     counter!("cronized_last_run").absolute(Utc::now().timestamp_millis() as u64);
