@@ -27,6 +27,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
+          sbom: true
+          provenance: mode=max
           tags: |
             alesharik/cronized:${{ steps.package-version.outputs.current-version }}-bullseye
             alesharik/cronized:bullseye
@@ -57,6 +59,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
+          sbom: true
+          provenance: mode=max
           tags: |
             alesharik/cronized:${{ steps.package-version.outputs.current-version }}-bullseye-slim
             alesharik/cronized:bullseye-slim
@@ -87,6 +91,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
+          sbom: true
+          provenance: mode=max
           tags: |
             alesharik/cronized:${{ steps.package-version.outputs.current-version }}-bookworm
             alesharik/cronized:bookworm
@@ -117,6 +123,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
+          sbom: true
+          provenance: mode=max
           tags: |
             alesharik/cronized:${{ steps.package-version.outputs.current-version }}-bookworm-slim
             alesharik/cronized:bookworm-slim
@@ -145,6 +153,8 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile.alpine
+          sbom: true
+          provenance: mode=max
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: |
