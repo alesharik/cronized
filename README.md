@@ -21,6 +21,14 @@ ENV CRONIZED_CMD="echo 1"
 # And run cronized, it will schedule your job
 ENTRYPOINT ["/cronized"]
 ```
+## Supported tags
+- `alesharik/cronized:bullseye`
+- `alesharik/cronized:bullseye-slim`
+- `alesharik/cronized:bookworm`
+- `alesharik/cronized:bookworm-slim`
+- `alesharik/cronized:alpine`
+
+Also, versioned tags are pushed (like `alesharik/cronized:0.1.9-alpine`)
 
 ## Configuration
 1. set `CRONIZED_CRON` env to desired schedule, in cron format
