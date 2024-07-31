@@ -2,6 +2,23 @@
 Dead-simple daemon to run Cron jobs in docker.
 Monitors job errors, write logs, and exports job info in Prometheus format.
 
+## Example
+```dockerfile
+# include container to copy binary
+FROM alesharik/cronized:bullseye AS cronized
+
+# include your container
+FROM debian:bullseye
+
+# copy binary and setup cron
+COPY --from=cronized /cronized /cronized
+ENV CRONIZED_CRON="* * * * * *"
+ENV CRONIZED_CMD="echo 1"
+
+# And run cronized, it will schedule your job
+ENTRYPOINT ["/cronized"]
+```
+
 ## Configuration
 1. set `CRONIZED_CRON` env to desired schedule, in cron format
 2. write desired command in `CRONIZED_CMD` env
