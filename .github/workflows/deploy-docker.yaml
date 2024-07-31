@@ -144,7 +144,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./Dockerfile
+          file: ./Dockerfile.alpine
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: |
