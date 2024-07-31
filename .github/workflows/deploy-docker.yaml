@@ -6,6 +6,7 @@ on:
 jobs:
   debian:
     runs-on: ubuntu-latest
+    environment: production
     strategy:
       matrix:
         base: [bullseye, slim-bullseye, bookwork, slim-bookworm]
